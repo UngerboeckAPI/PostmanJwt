@@ -173,7 +173,25 @@
 					"// JWT generation script adapted from",
 					"// https://gist.github.com/corbanb/db03150abbe899285d6a86cc480f674d",
 					"",
-					"var jwtSecret = pm.collectionVariables.get('ApiUserSecret') || ''",
+					"var jwtSecret = pm.environment.get('secret');",
+					"var apiUserId = pm.environment.get('ApiUserId');",
+					"var apiUserKey = pm.environment.get('ApiUserKey');",
+					"var proxiedUser = pm.environment.get('ProxiedUser') || ''; //Optional user id of the user the API User is proxying as",
+					"",
+					"console.log('Check value: ', apiUserId);",
+					"",
+					"",
+					"if( !jwtSecret) {",
+					"    throw new Error(\"'secret' variable not defined\");",
+					"} ",
+					"",
+					"if( !apiUserId) {",
+					"    throw new Error(\"'ApiUserId' variable not defined\");",
+					"}",
+					"",
+					"if( !apiUserKey) {",
+					"    throw new Error(\"'ApiUserKey' variable not defined\");",
+					"}",
 					"",
 					"// Set headers for JWT",
 					"var header = {",
@@ -185,8 +203,9 @@
 					"var currentTimestamp = Math.floor(Date.now() / 1000)",
 					"",
 					"var data = {",
-					"\t'iss': pm.collectionVariables.get('ApiUserID'),",
-					"\t'key': pm.collectionVariables.get('ApiUserKey') || '',",
+					"\t'iss': apiUserId,",
+					"\t'key': apiUserKey,",
+					"    'sub': proxiedUser,",
 					"\t'iat': currentTimestamp,",
 					"\t'exp': currentTimestamp + 30, // expiry time is 30 seconds from time of creation",
 					"}",
@@ -236,28 +255,6 @@
 					""
 				]
 			}
-		}
-	],
-	"variable": [
-		{
-			"key": "domain",
-			"value": "yoursite.gomomentus.com",
-			"type": "string"
-		},
-		{
-			"key": "ApiUserID",
-			"value": "APIUSERID",
-			"type": "string"
-		},
-		{
-			"key": "ApiUserSecret",
-			"value": "FILL-IN-YOUR-GUIDVALUE",
-			"type": "string"
-		},
-		{
-			"key": "ApiUserKey",
-			"value": "FILL-IN-YOUR-GUIDVALUE",
-			"type": "string"
 		}
 	]
 }
