@@ -173,10 +173,10 @@
 					"// JWT generation script adapted from",
 					"// https://gist.github.com/corbanb/db03150abbe899285d6a86cc480f674d",
 					"",
-					"var jwtSecret = pm.environment.get('secret');",
-					"var apiUserId = pm.environment.get('ApiUserId');",
-					"var apiUserKey = pm.environment.get('ApiUserKey');",
-					"var proxiedUser = pm.environment.get('ProxiedUser') || ''; //Optional user id of the user the API User is proxying as",
+					"var jwtSecret = pm.collectionVariables.get('secret');",
+					"var apiUserId = pm.collectionVariables.get('ApiUserId');",
+					"var apiUserKey = pm.collectionVariables.get('ApiUserKey');",
+					"var proxiedUser = pm.collectionVariables.get('ProxiedUser') || ''; //Optional user id of the user the API User is proxying as",
 					"",
 					"console.log('Check value: ', apiUserId);",
 					"",
@@ -255,6 +255,34 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "yoursite.gomomentus.com",
+			"type": "string"
+		},
+		{
+			"key": "secret",
+			"value": "FILL-IN-YOUR-GUIDVALUE",
+			"type": "string"
+		},
+		{
+			"key": "ApiUserId",
+			"value": "APIUSERID",
+			"type": "string"
+		},
+		{
+			"key": "ApiUserKey",
+			"value": "FILL-IN-YOUR-GUIDVALUE",
+			"type": "string"
+		},
+		{
+			"key": "ProxiedUser",
+			"value": "OPTIONALUSERID",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
